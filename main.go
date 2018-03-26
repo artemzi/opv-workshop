@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+
 	"github.com/Sirupsen/logrus"
 	"github.com/takama/router"
 )
@@ -8,8 +10,13 @@ import (
 var log = logrus.New()
 
 func main() {
+	port := os.Getenv("SERVICE_PORT")
+	if len(port) == 0 {
+		log.Fatal("Service port is not set")
+	}
+
 	r := router.New()
 	r.Logger = logger
 	r.GET("/", home)
-	r.Listen(":8000")
+	r.Listen(port)
 }
