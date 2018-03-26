@@ -19,7 +19,9 @@ vendor: clean
 	&& dep ensure
 
 build: vendor
-	env CGO_ENABLED=0 GOOS=linux go build -o $(APP) .
+	env CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo \
+	-ldflags "-s -w -X ${PROJECT}/version.RELEASE=${RELEASE} -X ${PROJECT}/version.COMMIT=${COMMIT} -X ${PROJECT}/version.REPO=${REPO_INFO}" \
+	-o ${APP}
 
 container: build
 	docker build --no-cache -t $(APP):$(RELEASE) -f ./Dockerfile .
