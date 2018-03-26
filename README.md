@@ -1,6 +1,7 @@
 # nil
 
-> export SERVICE_PORT=":8000"
+Set variables for running it localy with:
+> export SERVICE_PORT="8000"
 
 ```Bash
 go test -v && env CGO_ENABLED=0 GOOS=linux go build -o app .
