@@ -1,10 +1,9 @@
 FROM scratch
 
-ENV SERVICE_HOST :
 ENV SERVICE_PORT 8000
 
 EXPOSE $SERVICE_PORT
 
-COPY app /
+COPY opv-workshop /
 
-CMD ["/app"]
+CMD ["/opv-workshop"]

@@ -1,6 +1,0 @@
-package: github.com/artemzi/opv-workshop
-import:
-- package: github.com/Sirupsen/logrus
-  version: ^1.0.5
-- package: github.com/takama/router
-  version: ^0.6.5
