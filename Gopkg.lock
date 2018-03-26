@@ -14,12 +14,6 @@
   version = "0.0.1"
 
 [[projects]]
-  name = "github.com/k8s-community/utils"
-  packages = ["shutdown"]
-  revision = "f2f61fbfdc7002ad21033e11b7cca6bbb43cd2f0"
-  version = "0.0.2"
-
-[[projects]]
   name = "github.com/takama/router"
   packages = ["."]
   revision = "0db9d28f71e2a29c7b82ea6a0851bb0dedeaf744"
@@ -43,6 +37,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "ec175a77ac46b756af479200b91b234b7d9234c1a690866de4dfea3594ce0cad"
+  inputs-digest = "f8b6659db762398e9675f663a93c87c556c9b1cfbc46e5441385ebe2fa00d621"
   solver-name = "gps-cdcl"
   solver-version = 1

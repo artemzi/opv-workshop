@@ -6,12 +6,7 @@ APP?=opv-workshop
 USERSPACE?=artemzi
 RELEASE?=0.0.1
 PROJECT?=github.com/${USERSPACE}/${APP}
-GOOS?=linux
-SERVICE_PORT?=8000
-
-NAMESPACE?=artemzi
-PREFIX?=${REGISTRY}/${NAMESPACE}/${APP}
-CONTAINER_NAME?=${APP}-${NAMESPACE}
+SERVICE_PORT?=8080
 
 REPO_INFO=$(shell git config --get remote.origin.url)
 
@@ -27,10 +22,13 @@ build: vendor
 	env CGO_ENABLED=0 GOOS=linux go build -o $(APP) .
 
 container: build
-	docker build -t $(APP):$(RELEASE) -f ./Dockerfile .
+	docker build --no-cache -t $(APP):$(RELEASE) -f ./Dockerfile .
+	docker images
 
 run:
-	docker run -p 8000:8000 $(APP):$(RELEASE)
+	docker run -p ${SERVICE_PORT}:${SERVICE_PORT} \
+	-e "SERVICE_PORT=${SERVICE_PORT}" \
+	-d $(APP):$(RELEASE)
 
 clean:
 	rm -f ${APP}
