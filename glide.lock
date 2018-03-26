@@ -1,0 +1,17 @@
+hash: bd27731111fdf91cf0db6498eda5c6d386cae4718ae9aedece7129a77a510005
+updated: 2018-03-26T13:24:25.976140166+03:00
+imports:
+- name: github.com/Sirupsen/logrus
+  version: c155da19408a8799da419ed3eeb0cb5db0ad5dbc
+- name: github.com/takama/router
+  version: 0db9d28f71e2a29c7b82ea6a0851bb0dedeaf744
+- name: golang.org/x/crypto
+  version: 88942b9c40a4c9d203b82b3731787b672d6e809b
+  subpackages:
+  - ssh/terminal
+- name: golang.org/x/sys
+  version: 91ee8cde435411ca3f1cd365e8f20131aed4d0a1
+  subpackages:
+  - unix
+  - windows
+testImports: []
