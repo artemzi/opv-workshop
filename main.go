@@ -10,6 +10,7 @@ import (
 var log = logrus.New()
 
 func main() {
+	host := os.Getenv("SERVICE_HOST")
 	port := os.Getenv("SERVICE_PORT")
 	if len(port) == 0 {
 		log.Fatal("Service port is not set")
@@ -18,5 +19,5 @@ func main() {
 	r := router.New()
 	r.Logger = logger
 	r.GET("/", home)
-	r.Listen(port)
+	r.Listen(host + port)
 }
