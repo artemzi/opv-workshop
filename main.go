@@ -1,8 +1,9 @@
 package main
 
-import "net/http"
+import "github.com/takama/router"
 
 func main() {
-	http.HandleFunc("/", home)
-	http.ListenAndServe(":8000", nil)
+	r := router.New()
+	r.GET("/", home)
+	r.Listen(":8000")
 }
