@@ -7,7 +7,7 @@ import (
 	"github.com/Sirupsen/logrus"
 	"github.com/artemzi/opv-workshop/version"
 	common_handlers "github.com/k8s-community/handlers"
-	// "github.com/k8s-community/utils/shutdown"
+	"github.com/k8s-community/utils/shutdown"
 	"github.com/takama/router"
 )
 
@@ -31,11 +31,11 @@ func main() {
 		c.Code(http.StatusOK).Body(http.StatusText(http.StatusOK))
 	})
 
-	// logger := log.WithField("event", "shutdown")
-	// sdHandler := shutdown.NewHandler(logger)
-	// sdHandler.RegisterShutdown(sd)
+	go r.Listen("0.0.0.0:" + port)
 
-	r.Listen("0.0.0.0:" + port)
+	logger := log.WithField("event", "shutdown")
+	sdHandler := shutdown.NewHandler(logger)
+	sdHandler.RegisterShutdown(sd)
 }
 
 // sd does graceful dhutdown of the service
