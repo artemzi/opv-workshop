@@ -39,6 +39,9 @@ build: vendor
 container: build
 	docker build --no-cache --pull -t $(APP):$(RELEASE) .
 
+push: container
+	docker push $(PREFIX):$(RELEASE)
+
 run: container
 	docker run --name ${CONTAINER_NAME} -p ${SERVICE_PORT}:${SERVICE_PORT} \
 		-e "SERVICE_PORT=${SERVICE_PORT}" \
