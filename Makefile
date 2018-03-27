@@ -2,16 +2,24 @@ all: push
 
 BUILDTAGS=
 
-APP?=opv-workshop
+APP?=myapp
+CHARTS?=mycharts
 USERSPACE?=artemzi
-RELEASE?=0.0.1
+HELM_REPO?=https://${USERSPACE}.github.io/${CHARTS}
+RELEASE?=0.1.0
 PROJECT?=github.com/${USERSPACE}/${APP}
 GOOS?=linux
+REGISTRY?=registry.artemzi.myapp
 SERVICE_PORT?=8080
 
-NAMESPACE?=artemzi
+NAMESPACE?=dev
 PREFIX?=${REGISTRY}/${NAMESPACE}/${APP}
 CONTAINER_NAME?=${APP}-${NAMESPACE}
+
+ifeq ($(NAMESPACE), default)
+	PREFIX=${REGISTRY}/${APP}
+	CONTAINER_NAME=${APP}
+endif
 
 REPO_INFO=$(shell git config --get remote.origin.url)
 

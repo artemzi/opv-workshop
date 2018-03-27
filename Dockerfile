@@ -1,9 +1,9 @@
 FROM scratch
 
-ENV SERVICE_PORT 8000
+ENV SERVICE_PORT 8080
 
 EXPOSE $SERVICE_PORT
 
-COPY opv-workshop /
+COPY myapp /
 
-CMD ["/opv-workshop"]
+CMD ["/myapp"]
