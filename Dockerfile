@@ -4,6 +4,6 @@ ENV SERVICE_PORT 8080
 
 EXPOSE $SERVICE_PORT
 
-COPY opv_workshop /
+COPY opv-workshop /
 
-CMD ["/opv_workshop"]
+CMD ["/opv-workshop"]

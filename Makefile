@@ -2,7 +2,7 @@ all: push
 
 BUILDTAGS=
 
-APP?=opv_workshop
+APP?=opv-workshop
 CHARTS?=mycharts
 USERSPACE?=artemzi
 HELM_REPO?=https://${USERSPACE}.github.io/${CHARTS}
