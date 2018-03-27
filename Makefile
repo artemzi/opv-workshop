@@ -3,15 +3,23 @@ all: push
 BUILDTAGS=
 
 APP?=opv-workshop
+CHARTS?=mycharts
 USERSPACE?=artemzi
-RELEASE?=0.0.1
+HELM_REPO?=https://${USERSPACE}.github.io/${CHARTS}
+RELEASE?=0.1.0
 PROJECT?=github.com/${USERSPACE}/${APP}
 GOOS?=linux
+REGISTRY?=registry.${USERSPACE}.${APP}
 SERVICE_PORT?=8080
 
-NAMESPACE?=artemzi
+NAMESPACE?=dev
 PREFIX?=${REGISTRY}/${NAMESPACE}/${APP}
 CONTAINER_NAME?=${APP}-${NAMESPACE}
+
+ifeq ($(NAMESPACE), default)
+	PREFIX=${REGISTRY}/${APP}
+	CONTAINER_NAME=${APP}
+endif
 
 REPO_INFO=$(shell git config --get remote.origin.url)
 
@@ -31,10 +39,18 @@ build: vendor
 container: build
 	docker build --no-cache --pull -t $(APP):$(RELEASE) .
 
+push: container
+	docker push $(PREFIX):$(RELEASE)
+
 run: container
 	docker run --name ${CONTAINER_NAME} -p ${SERVICE_PORT}:${SERVICE_PORT} \
 		-e "SERVICE_PORT=${SERVICE_PORT}" \
 		-d $(APP):$(RELEASE)
+
+deploy: push
+	helm repo add ${USERSPACE} ${HELM_REPO} \
+	&& helm repo up \
+	&& helm upgrade ${CONTAINER_NAME} ${USERSPACE}/${APP} --namespace ${NAMESPACE} --set image.tag=${RELEASE} -i --wait
 
 fmt:
 	@echo "+ $@"
