@@ -2,14 +2,14 @@ all: push
 
 BUILDTAGS=
 
-APP?=myapp
+APP?=opv_workshop
 CHARTS?=mycharts
 USERSPACE?=artemzi
 HELM_REPO?=https://${USERSPACE}.github.io/${CHARTS}
 RELEASE?=0.1.0
 PROJECT?=github.com/${USERSPACE}/${APP}
 GOOS?=linux
-REGISTRY?=registry.artemzi.myapp
+REGISTRY?=registry.${USERSPACE}.${APP}
 SERVICE_PORT?=8080
 
 NAMESPACE?=dev
@@ -43,6 +43,11 @@ run: container
 	docker run --name ${CONTAINER_NAME} -p ${SERVICE_PORT}:${SERVICE_PORT} \
 		-e "SERVICE_PORT=${SERVICE_PORT}" \
 		-d $(APP):$(RELEASE)
+
+deploy: push
+	helm repo add ${USERSPACE} ${HELM_REPO} \
+	&& helm repo up \
+	&& helm upgrade ${CONTAINER_NAME} ${USERSPACE}/${APP} --namespace ${NAMESPACE} --set image.tag=${RELEASE} -i --wait
 
 fmt:
 	@echo "+ $@"
