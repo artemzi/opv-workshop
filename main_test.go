@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -54,7 +55,7 @@ func TestRootHandler(t *testing.T) {
 	}
 	trw := httptest.NewRecorder()
 	r.ServeHTTP(trw, req)
-	inf := "myapp v" + version.RELEASE
+	inf := fmt.Sprintf("WORKSHOP v%s\n", version.RELEASE)
 	if trw.Body.String() != inf {
 		t.Error("Expected", inf, "got", trw.Body.String())
 	}
