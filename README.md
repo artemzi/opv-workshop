@@ -1,4 +1,4 @@
-# nil
+# microservice based project; organization example.
 
 Set variables for running it localy with:
 > export SERVICE_PORT="8000"
